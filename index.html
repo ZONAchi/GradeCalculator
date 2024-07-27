@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .from-all{
+            width: 400px;
+            height: 600px;
+            background-color: rgb(244, 236, 227);
+            padding: 30px;
+            margin:auto;
+            margin-top: 30px;
+        }
+
+        .from-title{
+            margin-bottom: 20px;
+        }
+
+        .input-value{
+            width: 100%;
+            height: 30px;
+            margin-bottom: 10px;
+            border-radius: 50px;
+            padding-left: 10px;
+            border-style: none;
+        }
+
+        .from-btn{
+            width: 100px;
+            height: 35px;
+            background-color: rgb(233, 168, 130);
+            border-style: none;
+            border-radius: 50px;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .show5{
+            color: rgb(243, 45, 45);
+            font-weight: bold;
+        }
+
+        .result{
+            width: 100%;
+            height: auto;
+            margin-top: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <form class="from-all">
+        <div class="from-title">
+            <h2>成績計算機</h2>
+        </div>
+        <label for="ch">
+            <span>國&nbsp;&nbsp;&nbsp;文</span>
+            <input class="input-value" type="number" placeholder="請輸入0~100" min="0" max="100" id="ch">
+        </label>
+        <label for="en">
+            <span>英&nbsp;&nbsp;&nbsp;文</span>
+            <input class="input-value" type="number" placeholder="請輸入0~100" min="0" max="100" id="en">
+        </label>
+        <label for="math">
+            <span>數&nbsp;&nbsp;&nbsp;學</span>
+            <input  class="input-value" type="number" placeholder="請輸入0~100" min="0" max="100" id="math">
+        </label>
+        <label for="sub1">
+            <span>專業一</span>
+            <input  class="input-value" type="number" placeholder="請輸入0~100" min="0" max="100" id="sub1">
+        </label>
+        <label for="sub2">
+            <span>專業二</span>
+            <input  class="input-value" type="number" placeholder="請輸入0~100" min="0" max="100" id="sub2">
+        </label>
+        <button id="from-btn" class="from-btn" type="button">成績查詢</button>
+        <div class="result">
+            <div>
+                <span>原始平均分數:</span>
+                <span class="show1"></span>
+            </div>
+            <div>
+                <span>加權後平均分數:</span>
+                <span class="show2"></span>
+            </div>
+            <div>
+                <span>是否及格:</span>
+                <span class="show3"></span>
+            </div>
+            <div>
+                <span>成績等級:</span>
+                <span class="show4"></span>
+            </div>
+        </div>
+    </form>
+    <script>
+        let btn = document.querySelector('#from-btn');
+        btn.addEventListener('click', function () {
+            let ch = document.querySelector('#ch').value;
+            let en = document.querySelector('#en').value;
+            let math = document.querySelector('#math').value;
+            let sub1 = document.querySelector('#sub1').value;
+            let sub2 = document.querySelector('#sub2').value;
+
+            // 判讀是否有輸入數值
+            let show5 = document.querySelector('.show5');
+            if(ch.length == 0 || en.length == 0 || math.length == 0 || sub1.length == 0 || sub2.length == 0){
+                // 彈跳視窗提醒
+                alert('請輸入成績');
+                console.log('沒有輸入數字')
+            };
+
+            let result1 = (parseInt(ch) + parseInt(en) + parseInt(math) + parseInt(sub1) + parseInt(sub2)) / 5;
+            console.log('原始平均成績', result1);
+            let result2 = (parseInt(ch) * 0.4 + parseInt(en) * 0.6 + parseInt(math) * 0.4 + parseInt(sub1) * 1.2 + parseInt(sub2) * 0.8) / 3.4;
+            console.log('加權後平均成績', result2);
+
+            let show1 = document.querySelector('.show1');
+            //                       限制小數點位數 
+            show1.innerHTML = result1.toFixed(2);
+            
+            let show2 = document.querySelector('.show2');
+            show2.innerHTML = result2.toFixed(2);
+
+            let show3 = document.querySelector('.show3');
+            if (result2 >= 60) {
+                show3.innerHTML = '及格';
+                console.log('及格');
+            }
+            else {
+                show3.innerHTML = '不及格';
+                console.log('不及格');
+            }
+
+            let show4 = document.querySelector('.show4');
+            if (result2 >= 90) {
+                show4.innerHTML = 'A';
+                console.log('A');
+            }
+            else if (result2 >= 80) {
+                show4.innerHTML = 'B';
+                console.log('B');
+            }
+            else if (result2 >= 70) {
+                show4.innerHTML = 'C';
+                console.log('C');
+            }
+            else if (result2 >= 60) {
+                show4.innerHTML = 'D';
+                console.log('D');
+            }
+            else {
+                show4.innerHTML = 'F';
+                console.log('F');
+            }
+        });
+
+    </script>
+</body>
+
+</html>
